@@ -1,0 +1,17 @@
+{
+  "name": "tenthgram-api",
+  "version": "1.0.0",
+  "description": "api for tenthman telegram",
+  "main": "app.js",
+  "scripts": {
+    "test": "node app.js"
+  },
+  "author": "David iDev",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.2",
+    "jquery": "^3.2.1",
+    "socket.io": "^2.0.4",
+    "telegram-mtproto": "^1.0.5"
+  }
+}

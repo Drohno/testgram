@@ -1,0 +1,30 @@
+<!doctype html>  
+<html lang="en">  
+    <head>
+        <meta charset="utf-8">    
+    </head>
+    <body>        
+        <div>
+            <input id="telefono" type="tel" placeholder="telefono">
+            <button onclick="sendPhone();">Enviar teléfono</button>
+        </div>
+        <div>
+            <input id="codigo" type="tel">
+            <button onclick="sendCode();">Enviar código</button>
+        </div>
+        <script src="/jquery/dist/jquery.js"></script>
+        <script src="/socket.io/socket.io.js"></script>     
+        <script>
+            var conexion = 0;
+            var socket = io.connect('http://localhost:4200');
+
+            function sendPhone(){
+                socket.emit('setPhone', document.getElementById('telefono').value)
+            }
+
+            function sendCode(){
+                socket.emit('setCode', document.getElementById('codigo').value)
+            }
+        </script>   
+    </body> 
+</html>  
