@@ -44,6 +44,7 @@ io.on('connection', (client)=>{
           }
           conseguirPhoneCodeHash().then(()=>{
             console.log("phone_code_hash\n", phone.phone_code_hash);
+            client.emit('nextStep');
           });
       }catch(error){
         console.log(error);

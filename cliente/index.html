@@ -2,28 +2,100 @@
 <html lang="en">  
     <head>
         <meta charset="utf-8">    
+        <title>Tenthgram Web Client</title>
+        <style>
+            button{
+                border-radius: 15px;
+                margin-top: 10px;
+            }
+
+            body, html{
+                display: block; width: 100%; height: 100%; padding: 0; margin: 0; color: #fff; background: #000;
+            }
+            .rings{
+                position: relative; display: block; width: 25vw; height: 25vw; overflow: hidden; margin: 5% auto;
+            }
+
+            /* First level children */
+            .rings > *{
+                position: absolute; top: 0; left: 0; height: 100%; width: 100%;  animation: rotate infinite linear;
+            }
+
+            /* Second level children */
+            .rings > * > *{
+                display: block; position: relative; width: 100%; height: 100%; border: 1px solid #ccc;
+                border-radius: 100%; border-top-color: rgba(255,255,255,.75); border-right-color: rgba(255,255,255,.5);
+                border-bottom-color: rgba(255,255,255,.25); border-left-color: rgba(255,255,255,0);
+            }
+
+            /* First Child */
+            .rings > *:nth-child(1){
+                position: absolute; text-align: center; color: #fff; height: 1em; top: calc(50% - 1em);
+            }
+
+            /* Second Child */
+            .rings > *:nth-child(2){
+                animation-duration: 8s;
+            }
+
+            /* Tird Child */
+            .rings > *:nth-child(3){
+                animation-duration: 12s; margin: 10%; height: 80%; width: 80%;
+            }
+
+            /* Fourth Child */
+            .rings > *:nth-child(4){
+                animation-duration: 20s; margin: 20%; height: 60%; width: 60%;
+            }
+
+            @keyframes rotate{
+                from { transform: rotate(360deg); }
+                to { transform: rotate(0deg); }
+            }
+
+        </style>
     </head>
-    <body>        
-        <div>
-            <input id="telefono" type="tel" value="+34680498957">
-            <button onclick="sendPhone();">Enviar teléfono</button>
+    <body style="overflow-y: hidden;">        
+        <div class="rings">
+            <h2>Tenthgram</h2>
+            <span><span></span></span>
+            <span><span></span></span>
+            <span><span></span></span>
         </div>
-        <div>
-            <input id="codigo" type="number">
-            <button onclick="sendCode();">Enviar código</button>
+
+        <div style="margin: 2% 45%; text-align: center;">
+            <section id="secTel">
+                <input id="telefono" type="tel" value="+34680498957">
+                <button style="background-color: green; color: white;" onclick="sendPhone();">Enviar teléfono</button>
+            </section>
+            <section hidden id="secCode">
+                <input id="codigo" type="number">
+                <button style="background-color: green; color: white;" onclick="sendCode();">Enviar código</button>
+            </section>
+            <button style="background-color: red; color: white;" onclick="reset();">Reset Steps</button>
         </div>
+
         <script src="/jquery/dist/jquery.js"></script>
         <script src="/socket.io/socket.io.js"></script>     
         <script>
-            var conexion = 0;
             var socket = io.connect('http://localhost:4200');
 
             function sendPhone(){
-                socket.emit('setPhone', document.getElementById('telefono').value)
+                socket.emit('setPhone', document.getElementById('telefono').value);
             }
 
+            function reset(){
+                document.getElementById('secTel').removeAttribute('hidden');
+                document.getElementById('secCode').setAttribute('hidden','');
+            }
+
+            socket.on('nextStep',(step)=>{
+                document.getElementById('secCode').removeAttribute('hidden');
+                document.getElementById('secTel').setAttribute('hidden','');
+            });
+
             function sendCode(){
-                socket.emit('setCode', document.getElementById('codigo').value)
+                socket.emit('setCode', document.getElementById('codigo').value);
             }
         </script>   
     </body> 
