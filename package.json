@@ -12,6 +12,6 @@
     "express": "^4.16.2",
     "jquery": "^3.2.1",
     "socket.io": "^2.0.4",
-    "telegram-mtproto": "^1.0.5"
+    "telegram-mtproto": "^3.2.11"
   }
 }
