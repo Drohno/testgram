@@ -27,7 +27,7 @@ const api = {
 }
 
 const server = {
-  dev: true //We will connect to the test server.
+  dev: false //We will connect to the test server.
 }           //Any empty configurations fields can just not be specified
 
 const telegram = MTProto({ server, api });
